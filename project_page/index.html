@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling">
+  <meta name="description" content="TODODesc.">
+  <meta name="keywords" content="Motion Forecasting, Trajectory Prediction, Autonomous Driving">
+  <meta name="author" content="Alexander Prutsch, David Schinagl, Horst Possegger">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Institute of Visual Computing, Graz University of Technology">
+  <meta property="og:title" content="Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling">
+  <meta property="og:description" content="TODODesc.">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling - Research Preview">
+  <meta property="article:published_time" content="2025-11-23T12:18:00.000Z">
+  <meta property="article:author" content="Alexander Prutsch, David Schinagl, Horst Possegger">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="autonomous driving">
+  <meta property="article:tag" content="motion forecasting">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling">
+  <meta name="citation_author" content="Prutsch, Alexander">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="IEEE/CVF Winter Conference on Applications of Computer Vision">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/TODO">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <title>Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling - Alexander Prutsch, David Schinagl, Horst Possegger | Academic Research</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/seam.ico">
+  <link rel="apple-touch-icon" href="static/images/seam.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling",
+    "description": "TODO DESC.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Alexander Prutsch",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Institute of Visual Computing, Graz University of Technology"
+        }
+      },
+    ],
+    "datePublished": "2026-02-TODO",
+    "publisher": {
+      "@type": "Organization",
+      "name": " WACV 2026"
+    },
+    "keywords": ["Motion Forecasting", "Trajectory Prediction", "Autonomous Driving"]
+    "abstract": "Future trajectories of neighboring traffic agents have a significant influence on the path planning and decision-making of autonomous vehicles. While trajectory forecasting is a well-studied field, research mainly focuses on snapshot-based prediction, where each scenario is treated independently of its global temporal context. However, real-world autonomous driving systems need to operate in a continuous setting, requiring real-time processing of data streams with low latency and consistent predictions over successive timesteps. We leverage this continuous setting to propose a lightweight yet highly accurate streaming-based trajectory forecasting approach. We integrate valuable information from previous predictions with a novel endpoint-aware modeling scheme. Our temporal context propagation uses the trajectory endpoints of the previous forecasts as anchors to extract targeted scenario context encodings. Our approach efficiently guides its scene encoder to extract highly relevant context information without needing refinement iterations or segment-wise decoding. Our experiments highlight that our approach effectively relays information across consecutive timesteps. Unlike methods using multi-stage refinement processing, our approach significantly reduces inference latency, making it well-suited for real-world deployment. We achieve state-of-the-art streaming trajectory prediction results on the Argoverse 2 multi-agent and single-agent benchmarks, while requiring substantially fewer resources.",
+    "citation": "@inproceedings{prutsch2026streaming, title={{Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling}}, author={Prutsch, Alexander and Schinagl, David and Possegger, Horst}, booktitle={In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision}, year={2026}",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Autonomous Driving"
+      },
+      {
+        "@type": "Thing", 
+        "name": "Computer Vision"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Institute of Visual Computing, Graz University of Technology",
+    "url": "https://ivc.tugraz.at/",
+    "logo": "https://ivc.tugraz.at/wp-content/uploads/tu-ivc-logo-small-768x263.png",
+  }
+  </script>
+</head>
+<body>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://a-pru.github.io/" target="_blank">Alexander Prutsch</a>,</span>
+                  <span class="author-block">
+                    <a href="https://dschinagl.github.io/" target="_blank">David Schinagl</a>,</span>
+                  <span class="author-block">
+                    <a href="https://snototter.github.io/" target="_blank">Horst Possegger</a></span>
+                  </span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">
+                            Institute of Visual Computing, Graz University of Technology <br>
+                            WACV 2026 Oral
+                    </span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <a href="https://arxiv.org/pdf/TODO" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                  <span class="link-block">
+                    <a href="https://github.com/a-pru/seam" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/TODO" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-centered">
+        <h2 class="title is-3">Abstract</h2>
+        </div>
+        <div class="content has-text-justified">
+          Future trajectories of neighboring traffic agents have a significant influence on the path planning and decision-making of autonomous vehicles. While trajectory forecasting is a well-studied field, research mainly focuses on snapshot-based prediction, where each scenario is treated independently of its global temporal context. However, real-world autonomous driving systems need to operate in a continuous setting, requiring real-time processing of data streams with low latency and consistent predictions over successive timesteps. We leverage this continuous setting to propose a lightweight yet highly accurate streaming-based trajectory forecasting approach. We integrate valuable information from previous predictions with a novel endpoint-aware modeling scheme. Our temporal context propagation uses the trajectory endpoints of the previous forecasts as anchors to extract targeted scenario context encodings. Our approach efficiently guides its scene encoder to extract highly relevant context information without needing refinement iterations or segment-wise decoding. Our experiments highlight that our approach effectively relays information across consecutive timesteps. Unlike methods using multi-stage refinement processing, our approach significantly reduces inference latency, making it well-suited for real-world deployment. We achieve state-of-the-art streaming trajectory prediction results on the Argoverse 2 multi-agent and single-agent benchmarks, while requiring substantially fewer resources.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop has-text-centered">
+        <h2 class="title is-3">Architecture</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+        <!-- <img src="static/images/arch.png" alt="SEAM Architecture" loading="lazy"/> -->
+        TODO
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-small">
+<div class="hero-body">
+<div class="container is-max-desktop has-text-centered">
+<h2 class="title is-3">Evaluations</h2>
+
+<h3 class="title is-4">Result Visualizations</h3>
+
+<div class="container has-text-left">
+    <div class="columns is-centered has-text-centered">
+
+    <div class="column">
+        <img src="static/images/todo.png" alt="TODO" loading="lazy"/>
+    </div>
+
+    <div class="column">
+        <img src="static/images/todo.png" alt="TODO" loading="lazy"/>
+    </div>
+
+    <div class="column">
+        <img src="static/images/todo.png" alt="TODO" loading="lazy"/>
+    </div>
+</div>
+</div>
+
+</div>
+</section>
+
+
+<!--BibTex citation -->
+  <section class="hero is-small is-light" id="BibTeX">
+    <div class="container is-max-desktop content hero-body">
+      <div class="bibtex-header">
+        <h2 class="title is-3">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@inproceedings{prutsch2026streaming,
+    title={{Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling}},
+    author={Prutsch, Alexander and Schinagl, David and Possegger, Horst},
+    booktitle={In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
+    year={2026}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer is-light">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
