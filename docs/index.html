@@ -104,7 +104,7 @@
       "@type": "Organization",
       "name": " WACV 2026"
     },
-    "keywords": ["Motion Forecasting", "Trajectory Prediction", "Autonomous Driving"]
+    "keywords": ["Motion Forecasting", "Trajectory Prediction", "Autonomous Driving"], 
     "abstract": "Future trajectories of neighboring traffic agents have a significant influence on the path planning and decision-making of autonomous vehicles. While trajectory forecasting is a well-studied field, research mainly focuses on snapshot-based prediction, where each scenario is treated independently of its global temporal context. However, real-world autonomous driving systems need to operate in a continuous setting, requiring real-time processing of data streams with low latency and consistent predictions over successive timesteps. We leverage this continuous setting to propose a lightweight yet highly accurate streaming-based trajectory forecasting approach. We integrate valuable information from previous predictions with a novel endpoint-aware modeling scheme. Our temporal context propagation uses the trajectory endpoints of the previous forecasts as anchors to extract targeted scenario context encodings. Our approach efficiently guides its scene encoder to extract highly relevant context information without needing refinement iterations or segment-wise decoding. Our experiments highlight that our approach effectively relays information across consecutive timesteps. Unlike methods using multi-stage refinement processing, our approach significantly reduces inference latency, making it well-suited for real-world deployment. We achieve state-of-the-art streaming trajectory prediction results on the Argoverse 2 multi-agent and single-agent benchmarks, while requiring substantially fewer resources.",
     "citation": "@inproceedings{prutsch2026streaming, title={{Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling}}, author={Prutsch, Alexander and Schinagl, David and Possegger, Horst}, booktitle={In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision}, year={2026}",
     "isAccessibleForFree": true,
@@ -138,7 +138,7 @@
   <main id="main-content">
   <section class="hero">
     <div class="hero-body">
-      <div class="container is-max-desktop">
+      <div class="container is-fullhd">
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <h1 class="title is-1 publication-title">Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling</h1>
@@ -199,24 +199,9 @@
 </section>
 
 <section class="section hero is-light">
-  <div class="container is-max-desktop">
+  <div class="container is-fullhd">
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <div class="content has-text-centered">
-        <h2 class="title is-3"></h2>
-        </div>
-        <div class="content has-text-centered">
-          This page is still under construction.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-full">
         <div class="content has-text-centered">
         <h2 class="title is-3">Abstract</h2>
         </div>
@@ -228,15 +213,91 @@
   </div>
 </section>
 
+<section class="section hero is-light">
+  <div class="container is-fullhd has-text-centered">
+    <h2 class="title is-3">Motivation and Contributions</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <ul class="has-text-left" style="display: inline-block; text-align: left; list-style-type: disc; padding-left: 1.5em;">
+          <li>Future trajectories of neighboring traffic agents have a strong influence on the decision-making of self-driving vehicles</li>
+          <li>The trajectories provide additional input to motion planning: high latency leads to unreliability due to outdated predictions</li>
+          <li><strong>Challenges</strong>
+          <ul style="list-style-type: square; padding-left: 1.5em;">
+            <li>State-of-the-art models often rely on iterative refinement (improves benchmark accuracy but computationally expensive and slow)</li>
+            <li>Standard benchmarks: isolated scenarios, whereas real vehicles operate in a continuous stream requiring temporal consistency</li>
+            <li>Scene context extraction is a critical challenge as relevant map elements often lie far ahead (100m+) along an agent's future path</li>
+          </ul>
+          <li><strong>Core Mechanisms</strong>
+          <ul style="list-style-type: square; padding-left: 1.5em;">
+            <li><strong>Temporal Information Propagation:</strong> Leverage the consecutive nature of streaming data to pass information across frames, improving accuracy and stability</li>
+            <li><strong>Prior-Informed Modeling:</strong> Uses prediction endpoints from the previous frame to focus on relevant future regions by encoding auxiliary target-centric features</li>
+          </ul>
+          <div class="content has-text-centered">
+            <img src="static/images/teaser.svg" alt="Temporal Information Propagation Using Endpoint-Aware Modeling" loading="lazy" width=40%/>
+          </div>
+          <div style="font-size: 2rem">
+            <strong>Key Contributions</strong>
+          </div>
+          <div style="display: flex; align-items: flex-start; font-size: 1.25rem; margin-top: 1em; margin-left: 0.8em;">
+            <span style="margin-right: 0.8em; color: #000000;">&#10141;</span>
+            <strong>Streaming Endpoint-Aware Modeling (SEAM): consistent and efficient continuous forecasting model, <br> high accuracy without multi-stage refinement</strong>
+          </div>
+
+          <div style="display: flex; align-items: flex-start; font-size: 1.25rem; margin-top: 1em; margin-left: 0.8em;">
+            <span style="margin-right: 0.8em; color: #000000;">&#10141;</span>
+            <strong>Minimal inference latency suitable for real-time deployment, while achieving higher accuracy than more complex and <br> resource-demanding models</strong>
+          </div>
+
+          <div style="display: flex; align-items: flex-start; font-size: 1.25rem; margin-top: 1em; margin-left: 0.8em;">
+            <span style="margin-right: 0.8em; color: #000000;">&#10141;</span>
+            <strong>Endpoint-Aware Modeling: ablation studies confirm effective information propagation mechanisms for streaming forecasting</strong>
+          </div>
+
+          <div style="display: flex; align-items: flex-start; font-size: 1.25rem; margin-top: 1em; margin-left: 0.8em;">
+            <span style="margin-right: 0.8em; color: #000000;">&#10141;</span>
+            <strong>New SOTA on the close-to-practice Argoverse 2 multi-agent benchmark for streaming-based processing</strong>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="section hero is-light">
-  <div class="container is-max-desktop has-text-centered">
-        <h2 class="title is-3">Architecture</h2>
+  <div class="container is-fullhd has-text-centered">
+        <h2 class="title is-3">Approach</h2>
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-          <img src="static/images/arch.png" alt="SEAM Architecture" loading="lazy"/>
-        </div>
+      <div class="column is-full">
+        <ul class="has-text-left" style="display: inline-block; text-align: left; list-style-type: disc; padding-left: 1.5em;">
+          <li><strong>Streaming Processing Scheme:</strong>
+          <ul style="list-style-type: square; padding-left: 1.5em;">
+            <li>Handle available history in chunks instead of processing all at once (standard snapshot-based processing)</li>
+            <li>Mimics continuous scenes within available benchmarks</li>
+          </ul>
+          <div class="content has-text-centered">
+            <img src="static/images/streaming.svg" alt="Streaming Processing" loading="lazy" width=30%/>
+          </div>
+          <li><strong>Endpoint-Aware Modeling (EAM):</strong>
+          <ul style="list-style-type: square; padding-left: 1.5em;">
+            <li>Use predictions from the previous frame as anchors to establish target-centric coordinate systems</li>
+            <li>Encode scene features in proximity to small sets of target-centric context features</li>
+            <li>Dual context combining standard agent-centric features (what's happening around the agent) and target-centric features (what's happening where the agent is likely to move)</li>
+          </ul>
+          <div class="content has-text-centered">
+              <img src="static/images/coordinatesystem.svg" alt="Target-Centric Feature Coordinate System" loading="lazy" width=15%/>
+          </div>
+          <li><strong>Architecture:</strong>
+            <ul style="list-style-type: square; padding-left: 1.5em;">
+              <li>Agent encoder <i>f</i><sub>A</sub>: Self-attention for motion features</li>
+              <li>Lane encoder <i>f</i><sub>L</sub>: Geometric features of lanes</li>
+              <li>Context encoders <i>f</i><sub>S</sub> and <i>f</i><sub>T</sub>: Self-attention for scene interactions</li>
+              <li>Decoder <i>f</i><sub>D</sub>: Cross-attention to agent-centric and target-centric tokens</li>
+            </ul>
+          <div class="content has-text-centered">
+            <img src="static/images/arch.svg" alt="SEAM Architecture" loading="lazy" width=80%/>
+          </div>
+        </ul>
       </div>
     </div>
   </div>
@@ -244,15 +305,23 @@
 
 <section class="hero is-small">
 <div class="hero-body">
-<div class="container is-max-desktop has-text-centered">
-<h2 class="title is-3">Evaluations</h2>
-<h3 class="title is-4">Benchmark Results</h3>
-  <div class="content has-text-justified">
-    TODO
+<div class="container is-fullhd has-text-centered">
+<h2 class="title is-3">Results</h2>
+<h3 class="title is-4">Argoverse 2 Visualizations</h3>
+  <div class="content has-text-centered">
+    <img src="static/images/results.png" alt="Results" loading="lazy" width=60%/>
   </div>
-<h3 class="title is-4">Result Visualizations</h3>
-  <div class="content has-text-justified">
-    <img src="static/images/results.png" alt="SEAM Architecture" loading="lazy"/>
+<h3 class="title is-4">AV2 Single-Agent</h3>
+  <div class="content has-text-centered">
+    <img src="static/images/av2_sa.svg" alt="AV2 Single-Agent Results" loading="lazy" width=50%/>
+  </div>
+<h3 class="title is-4">AV2 Multi-Agent</h3>
+  <div class="content has-text-centered">
+    <img src="static/images/av2_ma.svg" alt="AV2 Multi-Agent Results" loading="lazy" width=50%/>
+  </div>
+<h3 class="title is-4">Streaming Information Propagation Ablation</h3>
+  <div class="content has-text-centered">
+    <img src="static/images/abl.svg" alt="Ablation Study" loading="lazy" width=30%/>
   </div>
 </div>
 </div>
@@ -263,7 +332,7 @@
 
 <!--BibTex citation -->
   <section class="hero is-small is-light" id="BibTeX">
-    <div class="container is-max-desktop content hero-body">
+    <div class="container is-fullhd content hero-body">
       <div class="bibtex-header">
         <h2 class="title is-3">BibTeX</h2>
         <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
