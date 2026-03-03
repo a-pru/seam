@@ -1,8 +1,8 @@
 # Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling (SEAM)
 **(Code and model weights coming soon!)**
 
-### Paper
-> **Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling**           
+### [[Paper]](https://openaccess.thecvf.com/content/WACV2026/html/Prutsch_Streaming_Real-Time_Trajectory_Prediction_Using_Endpoint-Aware_Modeling_WACV_2026_paper.html) [[ArXiv]](https://arxiv.org/abs/2603.01864)
+> [**Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling**](https://arxiv.org/abs/2603.01864)  
 > Alexander Prutsch, David Schinagl, Horst Possegger
 > **Graz University of Technology**  
 > **WACV 2026 Oral**
@@ -75,10 +75,10 @@ Please update the data_root, chkpt_dir, and av2_raw_data_dir variable in the scr
 ## Bibtex
 ```bibtex
 @inproceedings{prutsch2026streaming,
- title={{Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling}},
- author={Alexander Prutsch, David Schinagl, Horst Possegger},
- booktitle={WACV},
- year={2026},
+    title={{Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling}},
+    author={Prutsch, Alexander and Schinagl, David and Possegger, Horst},
+    booktitle={In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
+    year={2026}
 }
 ```
 
