@@ -1,0 +1,19 @@
+tag: Seam_I
+
+pl_module:
+  _target_: src.model.pl_modules.BaseLightningModule
+  model:
+    _target_: src.model.seam.Seam_I
+    embed_dim: 128
+    future_steps: 60
+    encoder_depth: 4
+    num_heads: 8
+    mlp_ratio: 4.0
+    qkv_bias: False
+    drop_path: 0.2
+  optim:
+    lr: 1e-3
+    weight_decay: 1e-2
+    min_lr: 1e-5
+    epochs: ${epochs}
+    warmup_ratio: 0.167

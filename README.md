@@ -1,5 +1,4 @@
 # Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling (SEAM)
-**(Code and model weights coming soon!)**
 
 ### [[Paper]](https://openaccess.thecvf.com/content/WACV2026/html/Prutsch_Streaming_Real-Time_Trajectory_Prediction_Using_Endpoint-Aware_Modeling_WACV_2026_paper.html) [[ArXiv]](https://arxiv.org/abs/2603.01864)
 > [**Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling**](https://arxiv.org/abs/2603.01864)  
@@ -59,10 +58,15 @@ python train.py datamodule.pl_module.data_root=/path/to/data_root/seam_processed
 ```
 
 ## Evaluation on Single-Agent benchmark
+**Checkpoints will be released soon.**
+
 Evaluate SEAM model using
 ```
 python train.py datamodule.pl_module.data_root=/path/to/data_root/seam_processed/ checkpoint=outputs/path/to/experiment/checkpoint_file.ckpt
 ```
+
+## Training and Evaluation on Multi-Agent benchmark
+**Code included, instructions will be updated soon.**
 
 ## Visualize Results
 Visualize the prediction results using
