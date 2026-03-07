@@ -51,22 +51,22 @@ Preprocess the Argoverse 2 dataset by executing
 python preprocess.py --data_root=/path/to/data_root -p
 ```
 
-## Training on Single-Agent benchmark
+## Training on Single-Agent Benchmark
 Train SEAM model using
 ```
 python train.py datamodule.pl_module.data_root=/path/to/data_root/seam_processed/
 ```
 
-## Evaluation on Single-Agent benchmark
-**Checkpoints will be released soon.**
+## Evaluation on Single-Agent Benchmark
+**Checkpoint will be released soon.**
 
 Evaluate SEAM model using
 ```
 python train.py datamodule.pl_module.data_root=/path/to/data_root/seam_processed/ checkpoint=outputs/path/to/experiment/checkpoint_file.ckpt
 ```
 
-## Training and Evaluation on Multi-Agent benchmark
-**Code included, instructions will be updated soon.**
+## Training and Evaluation on Multi-Agent Benchmark
+**Code included, checkpoint and instructions coming soon.**
 
 ## Visualize Results
 Visualize the prediction results using
