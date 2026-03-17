@@ -7,7 +7,7 @@ pl_module:
   model:
     _target_: src.model.seam.Seam
     embed_dim: 128
-    future_steps: 60
+    future_steps: 80
     encoder_depth: 4
     num_heads: 8
     mlp_ratio: 4.0
