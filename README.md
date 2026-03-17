@@ -58,12 +58,17 @@ python train.py datamodule.pl_module.data_root=/path/to/data_root/seam_processed
 ```
 
 ## Evaluation on Single-Agent Benchmark
-**Checkpoint will be released soon.**
+**Checkpoint provided in the repository.**
 
 Evaluate SEAM model using
 ```
-python train.py datamodule.pl_module.data_root=/path/to/data_root/seam_processed/ checkpoint=outputs/path/to/experiment/checkpoint_file.ckpt
+python eval.py datamodule.pl_module.data_root=/path/to/data_root/seam_processed/ checkpoint=checkpoints/seam.ckpt
 ```
+
+Expected results:
+| MR | minADE1 | minADE6 | minFDE1 | minFDE6 | b-minFDE6 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 0.153 | 1.598 | 0.663 | 3.962 | 1.249 | 1.848 |
 
 ## Training and Evaluation on Multi-Agent Benchmark
 **Code included, checkpoint and instructions coming soon.**
