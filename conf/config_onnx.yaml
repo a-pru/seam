@@ -1,0 +1,15 @@
+defaults:
+  - config
+  - override model: Seam_onnx
+  - _self_
+
+checkpoint: checkpoints/seam.ckpt
+
+onnx:
+  num_agents: 20 # fixed agent token budget
+  num_lanes: 155 # fixed lane token budget
+  opset: 17
+  simplify: True
+  out_dir: checkpoints/onnx
+  backend: ort # ort: ONNX Runtime, torch: PyTorch reference with the same token budget
+  providers: [CUDAExecutionProvider, CPUExecutionProvider]

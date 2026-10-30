@@ -1,2 +1,7 @@
 **__pycache__**
 outputs/*
+conf/datamodule/av1*
+conf/datamodule/nus*
+conf/model/Seam_nus.yaml
+src/datamodules/av1_*
+src/datamodules/nus_*

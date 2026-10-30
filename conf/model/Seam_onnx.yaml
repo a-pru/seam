@@ -1,0 +1,9 @@
+defaults:
+  - Seam
+  - _self_
+
+tag: Seam_onnx
+
+pl_module:
+  model:
+    _target_: src.deploy.seam_onnx.SeamOnnx

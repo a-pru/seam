@@ -114,6 +114,66 @@ class Seam_I(nn.Module):
         return self.load_state_dict(state_dict=state_dict, strict=False)
 
 
+    def _encode_agents(self, hist_feat, hist_valid_mask, hist_key_valid_mask):
+        B, N, L, D = hist_feat.shape
+        hist_feat = hist_feat.view(B * N, L, D)
+        hist_feat_key_valid_mask = (hist_key_valid_mask).view(B * N)
+        actor_feat = hist_feat[hist_feat_key_valid_mask]
+
+        if isinstance(self, Seam):
+            num_hist_ts = 30
+        else:
+            num_hist_ts = 50
+        ts = torch.arange(num_hist_ts).view(1, -1, 1).repeat(actor_feat.shape[0], 1, 1).to(actor_feat.device).float()
+        actor_feat = torch.cat([actor_feat, ts], dim=-1)
+
+        actor_feat = self.h_proj( actor_feat )
+        kpm = (~hist_valid_mask).view(B*N, -1)[hist_feat_key_valid_mask]
+        for blk in self.h_embed:
+            actor_feat = blk(actor_feat, key_padding_mask=kpm)
+        actor_feat = torch.max(actor_feat, axis=1).values
+        actor_feat_tmp = torch.zeros(
+            B * N, actor_feat.shape[-1], device=actor_feat.device
+        )
+
+        actor_feat_tmp[hist_feat_key_valid_mask] = actor_feat
+        return actor_feat_tmp.view(B, N, actor_feat.shape[-1])
+
+
+    def _encode_target_context(self, target_encoder, target_mask, memory_new_y_hat):
+        B = target_encoder.shape[0]
+        target_encoder = target_encoder.view(B*6, -1, self.embed_dim)
+        container = torch.zeros_like(target_encoder).view(-1, self.embed_dim)
+        target_valid = ~target_mask
+
+        batch_indices, valid_indices = target_valid.nonzero(as_tuple=True)
+        compressed_target_encoder = target_encoder[batch_indices, valid_indices]  # [M_total, D]
+        compressed_target_mask = target_mask[batch_indices, valid_indices]  # [M_total]
+
+        M_per_batch = target_valid.sum(dim=1).tolist()
+        compressed_target_encoder = torch.split(compressed_target_encoder, M_per_batch)
+        compressed_target_mask = torch.split(compressed_target_mask, M_per_batch)
+        compressed_target_encoder = pad_sequence(compressed_target_encoder, batch_first=True)
+        compressed_target_mask = pad_sequence(compressed_target_mask, batch_first=True, padding_value=True)
+
+        for blk in self.target_blocks:
+            compressed_target_encoder = blk(compressed_target_encoder, key_padding_mask=compressed_target_mask)
+        compressed_target_encoder = self.target_norm(compressed_target_encoder)
+
+        target_center_embed = self.target_center_embed(memory_new_y_hat[:, :, -1].detach())
+        compressed_target_encoder = compressed_target_encoder.view(B, 6, -1, self.embed_dim) + target_center_embed.unsqueeze(2)
+
+        container[target_valid.view(-1)] = compressed_target_encoder.view(-1, self.embed_dim)[~compressed_target_mask.view(-1)]
+        target_encoder = container.view(B, 6, -1, self.embed_dim)
+        return target_encoder, compressed_target_encoder, compressed_target_mask
+
+
+    def _split_tokens(self, x, type_mask):
+        # split scene tokens (or their masks) into agent and lane tokens
+        B = x.shape[0]
+        return x[type_mask].reshape(B, -1, *x.shape[2:]), x[~type_mask].reshape(B, -1, *x.shape[2:])
+
+
     def forward(self, data):
         hist_valid_mask = data['x_valid_mask']
         hist_key_valid_mask = data['x_key_valid_mask']
@@ -139,28 +199,7 @@ class Seam_I(nn.Module):
         # AGENT ENCODING
 
         B, N, L, D = hist_feat.shape
-        hist_feat = hist_feat.view(B * N, L, D)
-        hist_feat_key_valid_mask = (hist_key_valid_mask).view(B * N)
-        actor_feat = hist_feat[hist_feat_key_valid_mask]
-        
-        if isinstance(self, Seam):
-            num_hist_ts = 30
-        else:
-            num_hist_ts = 50
-        ts = torch.arange(num_hist_ts).view(1, -1, 1).repeat(actor_feat.shape[0], 1, 1).to(actor_feat.device).float()
-        actor_feat = torch.cat([actor_feat, ts], dim=-1)
-
-        actor_feat = self.h_proj( actor_feat )
-        kpm = (~hist_valid_mask).view(B*N, -1)[hist_feat_key_valid_mask]
-        for blk in self.h_embed:
-            actor_feat = blk(actor_feat, key_padding_mask=kpm)
-        actor_feat = torch.max(actor_feat, axis=1).values
-        actor_feat_tmp = torch.zeros(
-            B * N, actor_feat.shape[-1], device=actor_feat.device
-        )
-
-        actor_feat_tmp[hist_feat_key_valid_mask] = actor_feat
-        actor_feat = actor_feat_tmp.view(B, N, actor_feat.shape[-1])
+        actor_feat = self._encode_agents(hist_feat, hist_valid_mask, hist_key_valid_mask)
 
         ####################
         # LANE ENCODING
@@ -238,30 +277,10 @@ class Seam_I(nn.Module):
             target_mask[:, 0] = False
             target_encoder[:, 0] = 0
 
-            target_encoder = target_encoder.view(B*6, -1, self.embed_dim)
-            container = torch.zeros_like(target_encoder).view(-1, self.embed_dim)
-            target_valid = ~target_mask
-            
-            batch_indices, valid_indices = target_valid.nonzero(as_tuple=True)
-            compressed_target_encoder = target_encoder[batch_indices, valid_indices]  # [M_total, D]
-            compressed_target_mask = target_mask[batch_indices, valid_indices]  # [M_total]
+            target_encoder, compressed_target_encoder, compressed_target_mask = self._encode_target_context(
+                target_encoder, target_mask, memory_new_y_hat
+            )
 
-            M_per_batch = target_valid.sum(dim=1).tolist()
-            compressed_target_encoder = torch.split(compressed_target_encoder, M_per_batch)
-            compressed_target_mask = torch.split(compressed_target_mask, M_per_batch)
-            compressed_target_encoder = pad_sequence(compressed_target_encoder, batch_first=True)
-            compressed_target_mask = pad_sequence(compressed_target_mask, batch_first=True, padding_value=True)
-
-            for blk in self.target_blocks:
-                compressed_target_encoder = blk(compressed_target_encoder, key_padding_mask=compressed_target_mask)
-            compressed_target_encoder = self.target_norm(compressed_target_encoder) 
-
-            target_center_embed = self.target_center_embed(memory_new_y_hat[:, :, -1].detach())
-            compressed_target_encoder = compressed_target_encoder.view(B, 6, -1, self.embed_dim) + target_center_embed.unsqueeze(2)
-
-            container[target_valid.view(-1)] = compressed_target_encoder.view(-1, self.embed_dim)[~compressed_target_mask.view(-1)]
-            target_encoder = container.view(B, 6, -1, self.embed_dim)
-        
         ####################
         # CONTEXT STREAM
 
@@ -288,9 +307,11 @@ class Seam_I(nn.Module):
 
             # scene interaction
             new_x_encoder = x_encoder
-            C = x_encoder.size(-1)
-            new_actor_feat = self.scene_interact(new_x_encoder[x_type_mask].reshape(B, -1, C), memory_x_encoder, cur_pose, memory_pose, key_padding_mask=~memory_valid_mask)
-            new_lane_feat = self.scene_interact(new_x_encoder[~x_type_mask].reshape(B, -1, C), memory_x_encoder[~memory_type_mask].reshape(B, -1, C), cur_pose, memory_pose, key_padding_mask=~memory_valid_mask[~memory_type_mask].reshape(B, -1))
+            cur_actor_tokens, cur_lane_tokens = self._split_tokens(new_x_encoder, x_type_mask)
+            _, memory_lane_tokens = self._split_tokens(memory_x_encoder, memory_type_mask)
+            _, memory_lane_valid_mask = self._split_tokens(memory_valid_mask, memory_type_mask)
+            new_actor_feat = self.scene_interact(cur_actor_tokens, memory_x_encoder, cur_pose, memory_pose, key_padding_mask=~memory_valid_mask)
+            new_lane_feat = self.scene_interact(cur_lane_tokens, memory_lane_tokens, cur_pose, memory_pose, key_padding_mask=~memory_lane_valid_mask)
             new_x_encoder = torch.cat([new_actor_feat, new_lane_feat], dim=1)
             x_encoder = new_x_encoder * key_valid_mask.unsqueeze(-1) + x_encoder * ~key_valid_mask.unsqueeze(-1)
 
@@ -349,7 +370,8 @@ class Seam_I(nn.Module):
             'y_hat_others': y_hat_others,
         }
 
-        glo_y_hat = torch.bmm(y_hat.detach().reshape(B, -1, 2), torch.inverse(rot_mat))
+        # inverse of a rotation matrix is its transpose (ONNX has no Inverse op)
+        glo_y_hat = torch.bmm(y_hat.detach().reshape(B, -1, 2), rot_mat.transpose(-1, -2))
         glo_y_hat = glo_y_hat.reshape(B, y_hat.size(1), -1, 2)
 
         if isinstance(self, Seam):
