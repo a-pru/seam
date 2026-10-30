@@ -1,9 +1,6 @@
 # Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling (SEAM)
 
-### [[Paper]](https://openaccess.thecvf.com/content/WACV2026/html/Prutsch_Streaming_Real-Time_Trajectory_Prediction_Using_Endpoint-Aware_Modeling_WACV_2026_paper.html) [[ArXiv]](https://arxiv.org/abs/2603.01864) [[MVA Journal]](https://link.springer.com/article/10.1007/s00138-026-01939-1)
-
-> [!NOTE]
-> **Check out [SHARP](https://github.com/a-pru/sharp) (CVPR 2026), the evolved version of SEAM**, with improved accuracy, robustness, and a broad code release for nuScenes, Argoverse 1, and Argoverse 2, including the multi-agent implementation.
+### [[WACV Paper]](https://openaccess.thecvf.com/content/WACV2026/html/Prutsch_Streaming_Real-Time_Trajectory_Prediction_Using_Endpoint-Aware_Modeling_WACV_2026_paper.html) [[WACV ArXiv]](https://arxiv.org/abs/2603.01864) [[MVA Journal Extension]](https://link.springer.com/article/10.1007/s00138-026-01939-1)
 
 > [**Streaming Real-Time Trajectory Prediction Using Endpoint-Aware Modeling**](https://arxiv.org/abs/2603.01864)  
 > Alexander Prutsch, David Schinagl, Horst Possegger  
@@ -16,6 +13,10 @@
 > **Machine Vision and Applications (MVA) 2026**
 
 Our MVA journal extension deploys SEAM on an embedded NVIDIA Jetson Orin. This repository includes the corresponding [ONNX export and inference](#onnx-export-and-inference-mva) code.
+
+> [!NOTE]
+> **Check out [SHARP](https://github.com/a-pru/sharp) (CVPR 2026), the evolved version of SEAM**, with improved accuracy, robustness, and a broad code release for nuScenes, Argoverse 1, and Argoverse 2, including the multi-agent implementation.
+
 
 ## Getting Started
 
